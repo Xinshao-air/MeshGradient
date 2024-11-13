@@ -17,7 +17,7 @@ final class MTLComputeShuffleCoefficientsFunction {
         self.bufferPool = bufferPool
     }
     
-    func call(grid: Grid<ControlPoint>, intermediateResultBuffer: MTLBuffer, commandBuffer: MTLCommandBuffer) {
+    func call(grid: MeshGradientGrid<ControlPoint>, intermediateResultBuffer: MTLBuffer, commandBuffer: MTLCommandBuffer) {
         let buffer = grid.elements.map {
             return MeshControlPoint(location: $0.location,
                                     uTangent: $0.uTangent,

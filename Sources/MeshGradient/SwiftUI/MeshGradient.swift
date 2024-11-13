@@ -9,8 +9,8 @@ public enum MeshGradientDefaults {
 }
 
 private enum MeshGradientState {
-	case animated(initial: Grid<ControlPoint>, animatorConfiguration: MeshAnimator.Configuration)
-	case `static`(grid: Grid<ControlPoint>)
+	case animated(initial: MeshGradientGrid<ControlPoint>, animatorConfiguration: MeshAnimator.Configuration)
+	case `static`(grid: MeshGradientGrid<ControlPoint>)
 }
 
 #if canImport(SwiftUI)
@@ -25,7 +25,7 @@ public struct MeshGradient: UIViewRepresentable {
 	private let subdivisions: Int
     private let grainAlpha: Float
 	
-	public init(initialGrid: Grid<ControlPoint>,
+	public init(initialGrid: MeshGradientGrid<ControlPoint>,
 				animatorConfiguration: MeshAnimator.Configuration,
 				grainAlpha: Float = MeshGradientDefaults.grainAlpha,
 				subdivisions: Int = MeshGradientDefaults.subdivisions) {
@@ -34,7 +34,7 @@ public struct MeshGradient: UIViewRepresentable {
 		self.subdivisions = subdivisions
 	}
 	
-	public init(grid: Grid<ControlPoint>,
+	public init(grid: MeshGradientGrid<ControlPoint>,
 				grainAlpha: Float = MeshGradientDefaults.grainAlpha,
 				subdivisions: Int = MeshGradientDefaults.subdivisions) {
 		self.state = .static(grid: grid)
@@ -109,7 +109,7 @@ public struct MeshGradient: NSViewRepresentable {
 	private let subdivisions: Int
 	private let grainAlpha: Float
 	
-	public init(initialGrid: Grid<ControlPoint>,
+	public init(initialGrid: MeshGradientGrid<ControlPoint>,
 				animatorConfiguration: MeshAnimator.Configuration,
 				grainAlpha: Float = MeshGradientDefaults.grainAlpha,
 				subdivisions: Int = MeshGradientDefaults.subdivisions) {
@@ -118,7 +118,7 @@ public struct MeshGradient: NSViewRepresentable {
 		self.subdivisions = subdivisions
 	}
 	
-	public init(grid: Grid<ControlPoint>,
+	public init(grid: MeshGradientGrid<ControlPoint>,
 				grainAlpha: Float = MeshGradientDefaults.grainAlpha,
 				subdivisions: Int = MeshGradientDefaults.subdivisions) {
 		self.state = .static(grid: grid)

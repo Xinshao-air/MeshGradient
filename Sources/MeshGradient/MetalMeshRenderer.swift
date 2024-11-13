@@ -55,7 +55,7 @@ public final class MetalMeshRenderer: NSObject, MTKViewDelegate {
 		viewportSize.y = Float(size.height)
 	}
 	
-    private func calculateTriangles(grid: Grid<ControlPoint>, subdivisions: Int, commandBuffer: MTLCommandBuffer) -> (buffer: MTLBuffer, length: Int, elementsCount: Int)? {
+    private func calculateTriangles(grid: MeshGradientGrid<ControlPoint>, subdivisions: Int, commandBuffer: MTLCommandBuffer) -> (buffer: MTLBuffer, length: Int, elementsCount: Int)? {
 		let resultVerticesSize = getResultVerticesSize(grid: grid, subdivisions: subdivisions)
 		
 		let resultTrianglesSize = (resultVerticesSize.width - 1) * (resultVerticesSize.height - 1) * 6
@@ -77,11 +77,11 @@ public final class MetalMeshRenderer: NSObject, MTKViewDelegate {
         return (resultTrianglesBuffer, resultTrianglesBufferSize, resultTrianglesSize)
 	}
 	
-	private func getResultVerticesSize(grid: Grid<ControlPoint>, subdivisions: Int) -> (width: Int, height: Int) {
+	private func getResultVerticesSize(grid: MeshGradientGrid<ControlPoint>, subdivisions: Int) -> (width: Int, height: Int) {
 		return (width: (grid.width - 1) * subdivisions, height: (grid.height - 1) * subdivisions)
 	}
 	
-    private func calculateMeshTriangles(grid: Grid<ControlPoint>, subdivisions: Int, commandBuffer: MTLCommandBuffer) -> (buffer: MTLBuffer, length: Int, elementsCount: Int)? {
+    private func calculateMeshTriangles(grid: MeshGradientGrid<ControlPoint>, subdivisions: Int, commandBuffer: MTLCommandBuffer) -> (buffer: MTLBuffer, length: Int, elementsCount: Int)? {
 
 		let resultVerticesSize = getResultVerticesSize(grid: grid, subdivisions: subdivisions)
 		

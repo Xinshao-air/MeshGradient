@@ -43,15 +43,15 @@ public final class MeshAnimator: MeshDataProvider {
         }
     }
     
-	private let initialGrid: Grid<ControlPoint>
+	private let initialGrid: MeshGradientGrid<ControlPoint>
     public var configuration: Configuration
-	private var animationParameters: Grid<AnimationFrameControlPoint>
+	private var animationParameters: MeshGradientGrid<AnimationFrameControlPoint>
     
-	public init(grid: Grid<ControlPoint>, configuration: Configuration) {
+	public init(grid: MeshGradientGrid<ControlPoint>, configuration: Configuration) {
         self.initialGrid = grid
         self.configuration = configuration
         
-        self.animationParameters = Grid<AnimationFrameControlPoint>(repeating: .zero, width: grid.width, height: grid.height)
+        self.animationParameters = MeshGradientGrid<AnimationFrameControlPoint>(repeating: .zero, width: grid.width, height: grid.height)
         
         for y in 0 ..< animationParameters.height {
             for x in 0 ..< animationParameters.width {
@@ -60,8 +60,8 @@ public final class MeshAnimator: MeshDataProvider {
         }
     }
     
-    public var grid: Grid<ControlPoint> {
-        var resultGrid = Grid<ControlPoint>(repeating: .zero,
+    public var grid: MeshGradientGrid<ControlPoint> {
+        var resultGrid = MeshGradientGrid<ControlPoint>(repeating: .zero,
                                             width: animationParameters.width,
                                             height: animationParameters.height)
         

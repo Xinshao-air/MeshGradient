@@ -12,8 +12,8 @@ public enum MeshGenerator {
 		min + f * (max - min)
 	}
 	
-	public static func generate(colorDistribution: Grid<Color>) -> Grid<ControlPoint> {
-		var grid = Grid(repeating: ControlPoint(),
+	public static func generate(colorDistribution: MeshGradientGrid<Color>) -> MeshGradientGrid<ControlPoint> {
+		var grid = MeshGradientGrid(repeating: ControlPoint(),
 						width: colorDistribution.width,
 						height: colorDistribution.height)
 		
@@ -25,7 +25,7 @@ public enum MeshGenerator {
 		return grid
 	}
 	
-	private static func generateControlPoint(in grid: inout Grid<ControlPoint>, x: Int, y: Int) {
+	private static func generateControlPoint(in grid: inout MeshGradientGrid<ControlPoint>, x: Int, y: Int) {
 		grid[x, y].location = simd_float2(
 			lerp(Float(x) / Float(grid.width  - 1), -1, 1),
 			lerp(Float(y) / Float(grid.height - 1), -1, 1)

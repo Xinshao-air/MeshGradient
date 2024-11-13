@@ -1,12 +1,12 @@
 
 public protocol MeshDataProvider {
-	var grid: Grid<ControlPoint> { get }
+	var grid: MeshGradientGrid<ControlPoint> { get }
 }
 
 public class StaticMeshDataProvider: MeshDataProvider {
-    public var grid: Grid<ControlPoint>
+    public var grid: MeshGradientGrid<ControlPoint>
 	
-    public init(grid: Grid<ControlPoint>) {
+    public init(grid: MeshGradientGrid<ControlPoint>) {
 		self.grid = grid
 	}
 }
