@@ -38,7 +38,7 @@ half4 noiseColor(int x, int y, bool isSmooth, float alpha)
     float xZoomed = xVal / 0.5;
     float yZoomed = yVal / 0.5;
     
-    colorVal = 256.0 * rand(xZoomed, yZoomed);
+    colorVal = 64.0 * rand(xZoomed, yZoomed);
     
     if (isSmooth) {
 //        colorVal = 256.0 * smoothNoise(xZoomed, yZoomed);
