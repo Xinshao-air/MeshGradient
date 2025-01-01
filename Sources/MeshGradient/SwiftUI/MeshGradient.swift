@@ -182,6 +182,7 @@ public struct MeshGradient: NSViewRepresentable {
 	}
 	
 }
+
 #endif // canImport(AppKit)
 
 #endif // canImport(SwiftUI)
