@@ -154,24 +154,29 @@ public struct MeshGradient: NSViewRepresentable {
 		}
 	}
 	
-	public func updateNSView(_ view: MTKView, context: Context) {
-		switch state {
-		case .animated(_, let animatorConfiguration):
-			guard let animator = context.coordinator.renderer.meshDataProvider as? MeshAnimator else {
-				fatalError("Incorrect mesh data provider type. Expected \(MeshAnimator.self), got \(type(of: context.coordinator.renderer.meshDataProvider))")
-			}
-			animator.configuration = animatorConfiguration
-			animator.configuration.framesPerSecond = min(animatorConfiguration.framesPerSecond, view.preferredFramesPerSecond)
-		case .static(let grid):
-			guard let staticMesh = context.coordinator.renderer.meshDataProvider as? StaticMeshDataProvider else {
-				fatalError("Incorrect mesh data provider type. Expected \(StaticMeshDataProvider.self), got \(type(of: context.coordinator.renderer.meshDataProvider))")
-			}
-			staticMesh.grid = grid
-			view.setNeedsDisplay(view.bounds)
-		}
-		context.coordinator.renderer.mtkView(view, drawableSizeWillChange: view.drawableSize)
-		context.coordinator.renderer.subdivisions = subdivisions
-	}
+    public func updateNSView(_ view: MTKView, context: Context) {
+        switch state {
+        case .animated(_, let animatorConfiguration):
+            guard let animator = context.coordinator.renderer.meshDataProvider as? MeshAnimator else {
+                fatalError("Incorrect mesh data provider type. Expected \(MeshAnimator.self), got \(type(of: context.coordinator.renderer.meshDataProvider))")
+            }
+            animator.configuration = animatorConfiguration
+            animator.configuration.framesPerSecond = min(animatorConfiguration.framesPerSecond, view.preferredFramesPerSecond)
+        case .static(let grid):
+            guard let staticMesh = context.coordinator.renderer.meshDataProvider as? StaticMeshDataProvider else {
+                fatalError("Incorrect mesh data provider type. Expected \(StaticMeshDataProvider.self), got \(type(of: context.coordinator.renderer.meshDataProvider))")
+            }
+            staticMesh.grid = grid
+            view.setNeedsDisplay(view.bounds)
+        }
+        
+        let scaleFactor: CGFloat = 0.5
+        view.drawableSize = CGSize(width: view.frame.size.width * scaleFactor,
+                                    height: view.frame.size.height * scaleFactor)
+
+        context.coordinator.renderer.mtkView(view, drawableSizeWillChange: view.drawableSize)
+        context.coordinator.renderer.subdivisions = subdivisions
+    }
 	
 	public func makeCoordinator() -> Coordinator {
 		return .init()
