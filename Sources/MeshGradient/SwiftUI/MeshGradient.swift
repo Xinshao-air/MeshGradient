@@ -170,10 +170,6 @@ public struct MeshGradient: NSViewRepresentable {
             view.setNeedsDisplay(view.bounds)
         }
         
-        let scaleFactor: CGFloat = 0.5
-        view.drawableSize = CGSize(width: view.frame.size.width * scaleFactor,
-                                    height: view.frame.size.height * scaleFactor)
-
         context.coordinator.renderer.mtkView(view, drawableSizeWillChange: view.drawableSize)
         context.coordinator.renderer.subdivisions = subdivisions
     }
