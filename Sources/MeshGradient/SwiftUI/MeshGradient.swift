@@ -108,23 +108,28 @@ public struct MeshGradient: NSViewRepresentable {
 	private let state: MeshGradientState
 	private let subdivisions: Int
 	private let grainAlpha: Float
+    private let resolutionScale: CGFloat
 	
 	public init(initialGrid: MeshGradientGrid<ControlPoint>,
 				animatorConfiguration: MeshAnimator.Configuration,
 				grainAlpha: Float = MeshGradientDefaults.grainAlpha,
-				subdivisions: Int = MeshGradientDefaults.subdivisions) {
+				subdivisions: Int = MeshGradientDefaults.subdivisions,
+				resolutionScale: CGFloat = 1.0) {
 		self.state = .animated(initial: initialGrid, animatorConfiguration: animatorConfiguration)
 		self.grainAlpha = grainAlpha
 		self.subdivisions = subdivisions
+        self.resolutionScale = resolutionScale
 	}
-	
-	public init(grid: MeshGradientGrid<ControlPoint>,
-				grainAlpha: Float = MeshGradientDefaults.grainAlpha,
-				subdivisions: Int = MeshGradientDefaults.subdivisions) {
-		self.state = .static(grid: grid)
-		self.grainAlpha = grainAlpha
-		self.subdivisions = subdivisions
-	}
+
+    public init(grid: MeshGradientGrid<ControlPoint>,
+                grainAlpha: Float = MeshGradientDefaults.grainAlpha,
+                subdivisions: Int = MeshGradientDefaults.subdivisions,
+                resolutionScale: CGFloat = 1.0) {
+        self.state = .static(grid: grid)
+        self.grainAlpha = grainAlpha
+        self.subdivisions = subdivisions
+        self.resolutionScale = resolutionScale
+    }
 	
 	public func makeNSView(context: Context) -> MTKView {
 		let view = MTKView(frame: .zero, device: MTLCreateSystemDefaultDevice())
@@ -169,6 +174,8 @@ public struct MeshGradient: NSViewRepresentable {
             staticMesh.grid = grid
             view.setNeedsDisplay(view.bounds)
         }
+        
+        view.drawableSize = CGSize(width: view.frame.size.width * resolutionScale, height: view.frame.size.height * resolutionScale)
         
         context.coordinator.renderer.mtkView(view, drawableSizeWillChange: view.drawableSize)
         context.coordinator.renderer.subdivisions = subdivisions
