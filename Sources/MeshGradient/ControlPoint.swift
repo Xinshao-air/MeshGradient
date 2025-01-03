@@ -45,12 +45,14 @@ extension ControlPoint: VectorArithmetic, AdditiveArithmetic {
               vTangent: lhs.vTangent + rhs.vTangent)
     }
     
+    
     public mutating func scale(by rhs: Double) {
         color.scale(by: rhs)
         location.scale(by: rhs)
         uTangent.scale(by: rhs)
         vTangent.scale(by: rhs)
     }
+    
     
     public var magnitudeSquared: Double {
         color.magnitudeSquared + location.magnitudeSquared + uTangent.magnitudeSquared + vTangent.magnitudeSquared
